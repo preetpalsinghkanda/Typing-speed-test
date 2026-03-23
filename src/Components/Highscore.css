@@ -1,0 +1,17 @@
+.highscore-container{
+    margin-top: 4rem;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.restartIcon{
+    filter: brightness(0);
+}
+
+
+.highscore-result{
+    border: 1px solid white;
+    display: flex;
+}
