@@ -1,17 +1,105 @@
 .highscore-container{
-    margin-top: 4rem;
-    border: 1px solid white;
+    margin-top: 1.5rem;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 30px;
+     flex: 1;  
+}
+
+.smashedIcon{
+    height: 70px;
 }
 
 .restartIcon{
+    height: 14px;
     filter: brightness(0);
 }
 
 
 .highscore-result{
-    border: 1px solid white;
+    /* border: 1px solid white; */
     display: flex;
+    gap: 12px;
+}
+
+.highscore-heading{
+    display: flex;
+    gap:10px;
+    flex-direction: column;
+    
+}
+
+.highscore-heading h2{
+    color:  hsl(0, 0%, 100%);
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+.highscore-heading p{
+    color: hsl(240, 3%, 46%);
+    font-size: 16px;
+
+}
+
+.highscore-result div{
+   width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+    padding: 8px 14px;
+    border: 0.8px solid hsla(240, 3%, 46%, 0.822);
+    border-radius: 6px;
+}
+
+.highscore-result div p{
+    color: hsl(240, 3%, 46%);
+    font-size: 14px;
+}
+
+.highscore-result div span{
+    font-weight: 800;
+    font-size: 18px;
+   
+}
+
+.wpm span{
+  color: hsl(0, 0%, 100%);
+}
+
+.accuracy span,.characters .correct-char{
+  color: hsl(140, 63%, 57%);
+}
+
+.characters{
+    color: hsl(240, 3%, 46%);
+}
+
+.characters .count{
+    color: hsl(354, 63%, 57%);
+}
+
+.BeatThisScore-btn{
+    margin-top: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    border-radius: 10px;
+    gap: 6px;
+    padding: 8px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+
+}
+
+.patternConfettiIcon{
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+    left: 0;
 }
