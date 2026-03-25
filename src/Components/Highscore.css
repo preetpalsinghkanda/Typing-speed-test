@@ -1,88 +1,89 @@
-.highscore-container{
+.highscore-container {
     margin-top: 1.5rem;
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
-     flex: 1;  
+    flex: 1;
 }
 
-.smashedIcon{
+.smashedIcon {
     height: 70px;
 }
 
-.restartIcon{
+.restartIcon {
     height: 14px;
     filter: brightness(0);
 }
 
 
-.highscore-result{
+.highscore-result {
     /* border: 1px solid white; */
     display: flex;
     gap: 12px;
 }
 
-.highscore-heading{
+.highscore-heading {
     display: flex;
-    gap:10px;
+    gap: 10px;
     flex-direction: column;
-    
+
 }
 
-.highscore-heading h2{
-    color:  hsl(0, 0%, 100%);
+.highscore-heading h2 {
+    color: hsl(0, 0%, 100%);
     font-size: 30px;
     text-align: center;
     font-weight: 600;
 }
 
 
-.highscore-heading p{
+.highscore-heading p {
     color: hsl(240, 3%, 46%);
     font-size: 16px;
 
 }
 
-.highscore-result div{
-   width: 120px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.highscore-result div {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     padding: 8px 14px;
     border: 0.8px solid hsla(240, 3%, 46%, 0.822);
     border-radius: 6px;
 }
 
-.highscore-result div p{
+.highscore-result div p {
     color: hsl(240, 3%, 46%);
     font-size: 14px;
 }
 
-.highscore-result div span{
+.highscore-result div span {
     font-weight: 800;
     font-size: 18px;
-   
+
 }
 
-.wpm span{
-  color: hsl(0, 0%, 100%);
+.wpm span {
+    color: hsl(0, 0%, 100%);
 }
 
-.accuracy span,.characters .correct-char{
-  color: hsl(140, 63%, 57%);
+.accuracy span,
+.characters .correct-char {
+    color: hsl(140, 63%, 57%);
 }
 
-.characters{
+.characters {
     color: hsl(240, 3%, 46%);
 }
 
-.characters .count{
+.characters .count {
     color: hsl(354, 63%, 57%);
 }
 
-.BeatThisScore-btn{
+.BeatThisScore-btn {
     margin-top: 14px;
     border: none;
     cursor: pointer;
@@ -97,7 +98,7 @@
 
 }
 
-.patternConfettiIcon{
+.patternConfettiIcon {
     position: absolute;
     width: 100vw;
     bottom: 0;
