@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Hero.css";
 import TypingContext from "./Context/Context";
 import restartIcon from "../assets/icon-restart.svg";
 import { useState } from "react";
+import { useRef } from "react";
 
 export default function Hero() {
   const {
+    setHighScore,
     data,
     input,
     setInput,
@@ -17,6 +19,7 @@ export default function Hero() {
     setOption,
     option,
     isTimeRunning,
+    highscore,
     reset,
   } = useContext(TypingContext);
 
@@ -29,6 +32,18 @@ export default function Hero() {
 
     return Math.round(words / timeSpent);
   };
+
+
+  useEffect(() => {
+    if (time === 0) {
+      const wpm = calculateWPM();
+
+      if (wpm > highscore) {
+        setHighScore(wpm);
+        localStorage.setItem("highScore", wpm);
+      }
+    }
+  }, [time]); 
 
   const calculateAccuracy = () => {
     const text = paragraph.text;
@@ -55,6 +70,8 @@ export default function Hero() {
   const [randomNumber] = useState(Math.floor(Math.random() * 10));
 
   const paragraph = data?.[mode]?.[randomNumber];
+
+  const inputRef = useRef(null);
 
   //return
   return (
@@ -91,8 +108,7 @@ export default function Hero() {
                 className={mode === "easy" ? "active-mode-btn" : ""}
                 onClick={() => {
                   setMode("easy");
-                  reset()
-                 
+                  reset();
                 }}
               >
                 Easy
@@ -101,7 +117,7 @@ export default function Hero() {
                 className={mode === "medium" ? "active-mode-btn" : ""}
                 onClick={() => {
                   setMode("medium");
-                 reset()
+                  reset();
                 }}
               >
                 Medium
@@ -110,7 +126,7 @@ export default function Hero() {
                 className={mode === "hard" ? "active-mode-btn" : ""}
                 onClick={() => {
                   setMode("hard");
-                  reset()
+                  reset();
                 }}
               >
                 Hard
@@ -125,7 +141,7 @@ export default function Hero() {
                 className={option === "timed" ? "active-mode-btn" : ""}
                 onClick={() => {
                   setOption("timed");
-                  reset()
+                  reset();
                 }}
               >
                 Timed(60s)
@@ -134,7 +150,7 @@ export default function Hero() {
                 className={option === "passage" ? "active-mode-btn" : ""}
                 onClick={() => {
                   setOption("passage");
-                  reset()
+                  reset();
                 }}
               >
                 Passage
@@ -148,12 +164,19 @@ export default function Hero() {
 
       {!isTimeRunning && (
         <div className="overlay">
-          <button onClick={() => setIsTimeRunning(false)}>
+          <button
+            onClick={() => {
+              setIsTimeRunning(true);
+              inputRef.current.focus();
+            }}
+          >
             Start Typing Test
           </button>
           <p>Or click the text and start typing</p>
         </div>
       )}
+
+      
       <p className={`para ${!isTimeRunning ? "blur" : ""}`}>
         {paragraph.text.split("").map((char, index) => {
           let color = "hsl(240, 3%, 46%)";
@@ -173,6 +196,7 @@ export default function Hero() {
         })}
       </p>
       <input
+        ref={inputRef}
         className="hidden-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -183,7 +207,7 @@ export default function Hero() {
       <button
         className="restart-btn "
         onClick={() => {
-          reset()
+          reset();
         }}
       >
         Restart Test
