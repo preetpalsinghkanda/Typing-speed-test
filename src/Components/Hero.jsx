@@ -1,26 +1,76 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Hero.css";
+import TypingContext from "./Context/Context";
+import restartIcon from "../assets/icon-restart.svg";
+import { useState } from "react";
 
 export default function Hero() {
+  const {
+    data,
+    input,
+    setInput,
+    time,
+    mode,
+    setMode,
+    setTime,
+    setIsTimeRunning,
+  } = useContext(TypingContext);
+
+  const calculateWPM = () => {
+    const chars = input.length;
+    const words = chars / 5;
+    const timeSpent = (60 - time) / 60;
+
+    if (timeSpent <= 0) return 0;
+
+    return Math.round(words / timeSpent);
+  };
+
+  const calculateAccuracy = () => {
+    const text = paragraph.text;
+    let correct = 0;
+
+    for (let i = 0; i < input.length; i++) {
+      if (input[i] === text[i]) {
+        correct++;
+      }
+    }
+
+    if (input.length === 0) return 0;
+
+    return Math.round((correct / input.length) * 100);
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
+  const [randomNumber] = useState(Math.floor(Math.random() * 10));
+
+  const paragraph = data?.[mode]?.[randomNumber];
+
   return (
     <div className="main-container">
       <div className="main-navbar">
         <div className="left-main-navbar">
           <div>
             <p>WPM:</p>
-            <span>40</span>
+            <span>{calculateWPM()}</span>
           </div>
           <hr />
           <div>
             <p>Accuracy:</p>
             <span>
-              <span>94</span>%
+              <span>{calculateAccuracy()}</span>%
             </span>
           </div>
           <hr />
           <div>
             <p>Time:</p>
-            <span>0:46</span>
+            <span>{formatTime(time)}</span>
           </div>
         </div>
 
@@ -28,9 +78,28 @@ export default function Hero() {
           <div className="right-navbar-box">
             <p>Difficulty:</p>
             <div className="button-box">
-              <button>Easy</button>
-              <button>Medium</button>
-              <button>Hard</button>
+              <button
+                onClick={() => {
+                  setMode("easy");
+                  setInput("");
+                  setTime(60);
+                  setIsTimeRunning(true);
+                }}
+              >
+                Easy
+              </button>
+              <button onClick={() => {
+                  setMode("medium");
+                  setInput("");
+                  setTime(60);
+                  setIsTimeRunning(true);
+                }}>Medium</button>
+              <button onClick={() => {
+                  setMode("hard");
+                  setInput("");
+                  setTime(60);
+                  setIsTimeRunning(true);
+                }}>Hard</button>
             </div>
           </div>
           <hr />
@@ -46,7 +115,43 @@ export default function Hero() {
 
       <hr className="hr" />
 
-      <p></p>
+      <p className="para">
+        {paragraph.text.split("").map((char, index) => {
+          let color = "hsl(240, 3%, 46%)";
+
+          if (index < input.length) {
+            color =
+              char === input[index]
+                ? "hsl(140, 63%, 57%)"
+                : "hsl(354, 63%, 57%)";
+          }
+
+          return (
+            <span key={index} style={{ color }}>
+              {char}
+            </span>
+          );
+        })}
+      </p>
+      <input
+        className="hidden-input"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        autoFocus
+      />
+      <hr className="hr"/>
+
+      <button
+        className="restart-btn "
+        onClick={() => {
+          setInput("");
+          setTime(60);
+          setIsTimeRunning(true);
+        }}
+      >
+        Restart Test
+        <img src={restartIcon} alt="restartIcon" className="icon-restart" />
+      </button>
     </div>
   );
 }

@@ -10,7 +10,9 @@ body{
   flex-direction: column;
    height: 100%;
   padding: 20px 80px 0px 80px;
-  
+  max-width: 1400px; 
+  height: 100vh;
+  margin: auto;
   background-color: hsl(0, 0%, 7%);
   font-family: "Sora", sans-serif;
   font-optical-sizing: auto;
