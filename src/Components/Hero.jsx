@@ -14,6 +14,10 @@ export default function Hero() {
     setMode,
     setTime,
     setIsTimeRunning,
+    setOption,
+    option,
+    isTimeRunning,
+    reset,
   } = useContext(TypingContext);
 
   const calculateWPM = () => {
@@ -52,6 +56,7 @@ export default function Hero() {
 
   const paragraph = data?.[mode]?.[randomNumber];
 
+  //return
   return (
     <div className="main-container">
       <div className="main-navbar">
@@ -67,11 +72,15 @@ export default function Hero() {
               <span>{calculateAccuracy()}</span>%
             </span>
           </div>
-          <hr />
-          <div>
-            <p>Time:</p>
-            <span>{formatTime(time)}</span>
-          </div>
+          {option !== "passage" && (
+            <>
+              <hr />
+              <div>
+                <p>Time:</p>
+                <span>{formatTime(time)}</span>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="right-main-navbar">
@@ -79,35 +88,57 @@ export default function Hero() {
             <p>Difficulty:</p>
             <div className="button-box">
               <button
+                className={mode === "easy" ? "active-mode-btn" : ""}
                 onClick={() => {
                   setMode("easy");
-                  setInput("");
-                  setTime(60);
-                  setIsTimeRunning(true);
+                  reset()
+                 
                 }}
               >
                 Easy
               </button>
-              <button onClick={() => {
+              <button
+                className={mode === "medium" ? "active-mode-btn" : ""}
+                onClick={() => {
                   setMode("medium");
-                  setInput("");
-                  setTime(60);
-                  setIsTimeRunning(true);
-                }}>Medium</button>
-              <button onClick={() => {
+                 reset()
+                }}
+              >
+                Medium
+              </button>
+              <button
+                className={mode === "hard" ? "active-mode-btn" : ""}
+                onClick={() => {
                   setMode("hard");
-                  setInput("");
-                  setTime(60);
-                  setIsTimeRunning(true);
-                }}>Hard</button>
+                  reset()
+                }}
+              >
+                Hard
+              </button>
             </div>
           </div>
           <hr />
           <div className="right-navbar-box">
             <p>Mode:</p>
             <div className="button-box">
-              <button>Timed(60s)</button>
-              <button>Passage</button>
+              <button
+                className={option === "timed" ? "active-mode-btn" : ""}
+                onClick={() => {
+                  setOption("timed");
+                  reset()
+                }}
+              >
+                Timed(60s)
+              </button>
+              <button
+                className={option === "passage" ? "active-mode-btn" : ""}
+                onClick={() => {
+                  setOption("passage");
+                  reset()
+                }}
+              >
+                Passage
+              </button>
             </div>
           </div>
         </div>
@@ -115,7 +146,15 @@ export default function Hero() {
 
       <hr className="hr" />
 
-      <p className="para">
+      {!isTimeRunning && (
+        <div className="overlay">
+          <button onClick={() => setIsTimeRunning(false)}>
+            Start Typing Test
+          </button>
+          <p>Or click the text and start typing</p>
+        </div>
+      )}
+      <p className={`para ${!isTimeRunning ? "blur" : ""}`}>
         {paragraph.text.split("").map((char, index) => {
           let color = "hsl(240, 3%, 46%)";
 
@@ -139,14 +178,12 @@ export default function Hero() {
         onChange={(e) => setInput(e.target.value)}
         autoFocus
       />
-      <hr className="hr"/>
+      <hr className="hr" />
 
       <button
         className="restart-btn "
         onClick={() => {
-          setInput("");
-          setTime(60);
-          setIsTimeRunning(true);
+          reset()
         }}
       >
         Restart Test

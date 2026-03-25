@@ -8,7 +8,9 @@ function TypingContextProvider({ children }) {
   const [input, setInput] = useState("");
 const [time, setTime] = useState(60);
 const [isTimeRunning, setIsTimeRunning] = useState(false)
-const [mode , setMode] = useState("easy")
+const [mode , setMode] = useState("easy");
+const [option , setOption] = useState("timed");
+const [isStarted ,setIsStarted] = useState(false);
 
   useEffect(() => {
   let interval;
@@ -29,11 +31,16 @@ const [mode , setMode] = useState("easy")
 }, [input]);
 
 
-
+function reset(){
+    setInput("");
+    setTime(60);
+    setIsTimeRunning(false);
+    setIsStarted(false);
+}
 
 
   return (
-    <TypingContext.Provider   value={{ data, input, setInput, time, setTime, isTimeRunning, setIsTimeRunning , setMode , mode}}>
+    <TypingContext.Provider   value={{ data, input, setInput, time, setTime, isTimeRunning, setIsTimeRunning , setMode , mode , option , setOption , reset}}>
       {children}
     </TypingContext.Provider>
   );

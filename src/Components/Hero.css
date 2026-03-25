@@ -1,4 +1,5 @@
 .main-container {
+    position: relative;
     margin-top: 50px;
     /* height: 70vh; */
     border: 1px solid white;
@@ -73,24 +74,70 @@
 .button-box {
     display: flex;
     gap: 6px;
+    
+}
+
+.button-box button{
     cursor: pointer;
 }
 
+.button-box button:hover{
+     border: 1px solid  hsl(210, 100%, 65%) !important;
+    color: hsl(210, 100%, 65%) !important;
+}
 
+.non-time{
+    display: none !important;
+}
 .hr {
     border: none;
     border-top: 2px solid hsla(240, 3%, 46%, 0.276);
     margin-top: 10px;
 
 }
-.para{
+
+.blur{
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  z-index: 10;
+}
+
+.overlay button {
+  background-color: #4da6ff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.overlay p{
+    color: hsl(0, 0%, 100%);
+}
+
+.para {
+    min-height: 50vh;
     color: hsl(240, 1%, 59%);
     font-size: 2rem;
     margin: 30px 0px;
     line-height: 3rem;
 }
 
-.restart-btn{
+.restart-btn {
     margin-top: 14px;
     border: none;
     cursor: pointer;
@@ -106,15 +153,20 @@
     background-color: hsl(0, 0%, 15%);
     margin: 0 auto;
     margin-top: 30px;
-    
+
 }
 
-.icon-restart{
+.icon-restart {
     height: 16px;
 }
 
 
-.hidden-input{
+.hidden-input {
     position: absolute;
-  opacity: 0;
+    opacity: 0;
+}
+
+.active-mode-btn{
+    border: 1px solid  hsl(210, 100%, 65%) !important;
+    color: hsl(210, 100%, 65%) !important;
 }
