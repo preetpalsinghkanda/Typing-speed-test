@@ -45,6 +45,8 @@ export default function Hero() {
       </div>
 
       <hr className="hr" />
+
+      <p></p>
     </div>
   );
 }
