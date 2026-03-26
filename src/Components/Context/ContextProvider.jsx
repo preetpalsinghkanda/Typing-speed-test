@@ -12,19 +12,17 @@ function TypingContextProvider({ children }) {
   const [option, setOption] = useState("timed");
   const [isStarted, setIsStarted] = useState(false);
 
-  const [highScore , setHighScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+  const [newHighScore, setNewHighScore] = useState(false);
+  const [isTestCompleted, setIsTestCompleted] = useState(false);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const savedScore = localStorage.getItem("highScore");
 
-    if(savedScore){
+    if (savedScore) {
       setHighScore(Number(savedScore));
-
     }
-  },[]);
-
-
+  }, [isTestCompleted]);
 
   useEffect(() => {
     if (!isTimeRunning) return;
@@ -71,6 +69,13 @@ function TypingContextProvider({ children }) {
         setOption,
         reset,
         highScore,
+        newHighScore,
+        setIsTestCompleted,
+        setNewHighScore,
+        isTestCompleted,
+
+
+
       }}
     >
       {children}

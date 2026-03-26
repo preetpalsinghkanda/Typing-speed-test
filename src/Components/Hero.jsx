@@ -41,6 +41,7 @@ export default function Hero() {
       if (wpm > highscore) {
         setHighScore(wpm);
         localStorage.setItem("highScore", wpm);
+        
       }
     }
   }, [time]); 

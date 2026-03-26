@@ -74,21 +74,28 @@
 .button-box {
     display: flex;
     gap: 6px;
-    
+
 }
 
-.button-box button{
+.button-box button {
     cursor: pointer;
 }
 
-.button-box button:hover{
-     border: 1px solid  hsl(210, 100%, 65%) !important;
+
+.button-box button:focus {
+    outline: 1px solid hsl(210, 100%, 65%) !important;
+    outline-offset: 3px;
+}
+
+.button-box button:hover {
+    border: 1px solid hsl(210, 100%, 65%) !important;
     color: hsl(210, 100%, 65%) !important;
 }
 
-.non-time{
+.non-time {
     display: none !important;
 }
+
 .hr {
     border: none;
     border-top: 2px solid hsla(240, 3%, 46%, 0.276);
@@ -96,40 +103,46 @@
 
 }
 
-.blur{
+.blur {
     filter: blur(5px);
     pointer-events: none;
     user-select: none;
 }
 
 .overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-  z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    z-index: 10;
 }
 
 .overlay button {
-  background-color: #4da6ff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
+    background-color: #4da6ff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.overlay button:focus{
+    outline: 1px solid hsl(210, 100%, 65%) !important;
+    outline-offset: 3px;
+
 }
 
 .overlay p{
     color: hsl(0, 0%, 100%);
 }
 
-.para {
+.para{
     min-height: 50vh;
     color: hsl(240, 1%, 59%);
     font-size: 2rem;
@@ -166,7 +179,7 @@
     opacity: 0;
 }
 
-.active-mode-btn{
-    border: 1px solid  hsl(210, 100%, 65%) !important;
+.active-mode-btn {
+    border: 1px solid hsl(210, 100%, 65%) !important;
     color: hsl(210, 100%, 65%) !important;
 }
