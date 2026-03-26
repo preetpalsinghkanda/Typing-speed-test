@@ -16,6 +16,8 @@ function TypingContextProvider({ children }) {
   const [newHighScore, setNewHighScore] = useState(false);
   const [isTestCompleted, setIsTestCompleted] = useState(false);
 
+  const [totalTyped, setTotalTyped] = useState(0);
+
   useEffect(() => {
     const savedScore = localStorage.getItem("highScore");
 
@@ -51,7 +53,37 @@ function TypingContextProvider({ children }) {
     setTime(60);
     setIsTimeRunning(false);
     setIsStarted(false);
+    setIsTestCompleted(false);
+    setNewHighScore(false);
+    setRandomNumber(Math.floor(Math.random() * 10));
+    setTotalTyped(0);
   }
+
+  function calculateWPM() {
+    if (totalTyped === 0) return 0;
+
+    const words = totalTyped / 5; 
+    const timeSpent = (60 - time) / 60;
+
+    if (timeSpent <= 0) return 0;
+
+    return Math.round(words / timeSpent);
+  }
+
+  function calculateAccuracy(text) {
+    if (totalTyped === 0) return 0;
+
+    let correct = 0;
+
+    for (let i = 0; i < input.length; i++) {
+      if (input[i] === text[i]) {
+        correct++;
+      }
+    }
+
+    return Math.round((correct / totalTyped) * 100);
+  }
+
 
   return (
     <TypingContext.Provider
@@ -73,9 +105,11 @@ function TypingContextProvider({ children }) {
         setIsTestCompleted,
         setNewHighScore,
         isTestCompleted,
-
-
-
+        calculateWPM,
+        calculateAccuracy,
+        paragraph,
+        setHighScore,
+        setTotalTyped,
       }}
     >
       {children}

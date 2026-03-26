@@ -13,13 +13,19 @@ export default function Hero() {
     setInput,
     time,
     mode,
+    isTestCompleted,
     setMode,
     setTime,
     setIsTimeRunning,
     setOption,
     option,
     isTimeRunning,
-    highscore,
+    highScore,
+    setNewHighScore,
+    setIsTestCompleted,
+    paragraph,
+    setTotalTyped,
+
     reset,
   } = useContext(TypingContext);
 
@@ -33,18 +39,31 @@ export default function Hero() {
     return Math.round(words / timeSpent);
   };
 
+  const finishTest = () => {
+    if (isTestCompleted) return;
+
+    setIsTimeRunning(false);
+    setIsTestCompleted(true);
+
+    const wpm = calculateWPM();
+    const accuracy = calculateAccuracy();
+
+   
+  };
 
   useEffect(() => {
     if (time === 0) {
-      const wpm = calculateWPM();
-
-      if (wpm > highscore) {
-        setHighScore(wpm);
-        localStorage.setItem("highScore", wpm);
-        
-      }
+      finishTest();
     }
-  }, [time]); 
+  }, [time]);
+
+  useEffect(() => {
+    if (!paragraph?.text) return;
+
+    if (input.length >= paragraph.text.length) {
+      finishTest();
+    }
+  }, [input]);
 
   const calculateAccuracy = () => {
     const text = paragraph.text;
@@ -67,10 +86,6 @@ export default function Hero() {
 
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
-
-  const [randomNumber] = useState(Math.floor(Math.random() * 10));
-
-  const paragraph = data?.[mode]?.[randomNumber];
 
   const inputRef = useRef(null);
 
@@ -177,7 +192,6 @@ export default function Hero() {
         </div>
       )}
 
-      
       <p className={`para ${!isTimeRunning ? "blur" : ""}`}>
         {paragraph.text.split("").map((char, index) => {
           let color = "hsl(240, 3%, 46%)";
@@ -200,7 +214,15 @@ export default function Hero() {
         ref={inputRef}
         className="hidden-input"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          const value = e.target.value;
+
+          if (value.length > input.length && setTotalTyped) {
+            setTotalTyped((prev) => prev + 1);
+          }
+
+          setInput(value);
+        }}
         autoFocus
       />
       <hr className="hr" />

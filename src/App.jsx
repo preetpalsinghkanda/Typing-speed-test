@@ -8,35 +8,44 @@ import Hero from "./Components/Hero";
 import TypingContext from "./Components/Context/Context";
 
 function App() {
-  const { isTestCompleted, newHighScore } = useContext(TypingContext);
+  const {
+    isTestCompleted,
+    newHighScore,
+    calculateWPM,
+    calculateAccuracy,
+    getCorrectChars,
+    data,
+    mode,
+    paragraph,
+  } = useContext(TypingContext);
+
   return (
     <>
       <Navbar />
-      <Hero />
-      {newHighScore && (
+      {!isTestCompleted && <Hero />}
+      {newHighScore ? (
         <Highscore
           img={smashedIcon}
           heading={"High Score Smashed!"}
           paragraph={"You're getting faster. That was incredible typing."}
           btnName={"Beat This Score"}
-          wpm={95}
-          accuracy={100}
-          correctChar={120}
-          count={5}
+          wpm={calculateWPM()}
+          accuracy={calculateAccuracy(paragraph.text)}
+          correctChar={getCorrectChars(paragraph.text)}
+          count={paragraph.text.length}
         />
-      )}
-      {isTestCompleted && (
+      ) : isTestCompleted ? (
         <Highscore
           img={rightTick}
           heading={"Task Complete!"}
           paragraph={"Solid run. Keep pushing to beat your high score."}
           btnName={"Go Again"}
-          wpm={85}
-          accuracy={90}
-          correctChar={120}
-          count={5}
+          wpm={calculateWPM()}
+          accuracy={calculateAccuracy(paragraph.text)}
+          correctChar={getCorrectChars(paragraph.text)}
+          count={paragraph.text.length}
         />
-      )}
+      ) : null}
     </>
   );
 }

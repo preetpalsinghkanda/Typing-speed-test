@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Highscore.css";
 import smashedIcon from '../assets/icon-new-pb.svg';
 import restartIcon from '../assets/icon-restart.svg';
 import patternConfettiIcon from '../assets/pattern-confetti.svg';
 import rightTick from '../assets/icon-completed.svg';
+import TypingContext from "./Context/Context";
 
 
 
 export default function Highscore(props){
+    const{reset} = useContext(TypingContext)
     return(
         <>
         <div className="highscore-container">
@@ -28,7 +30,7 @@ export default function Highscore(props){
                     <span><span className="correct-char">{props.correctChar}</span>/<span className="count">{props.count}</span></span>
                 </div>
             </div>
-            <button className="BeatThisScore-btn">{props.btnName}<img src={restartIcon} alt="restartIcon" className="restartIcon"/></button>
+            <button onClick={()=>reset()} className="BeatThisScore-btn">{props.btnName}<img src={restartIcon} alt="restartIcon" className="restartIcon"/></button>
             
         </div>
         <img src={patternConfettiIcon} alt="patternConfettiIcon" className="patternConfettiIcon" />
