@@ -5,6 +5,8 @@ import restartIcon from '../assets/icon-restart.svg';
 import patternConfettiIcon from '../assets/pattern-confetti.svg';
 import rightTick from '../assets/icon-completed.svg';
 import TypingContext from "./Context/Context";
+import starImg1 from '../assets/pattern-star-1.svg';
+import starImg2 from '../assets/pattern-star-2.svg';
 
 
 
@@ -31,9 +33,10 @@ export default function Highscore(props){
                 </div>
             </div>
             <button onClick={()=>reset()} className="BeatThisScore-btn">{props.btnName}<img src={restartIcon} alt="restartIcon" className="restartIcon"/></button>
-            
+            <img src={props.starImg1} className="star-img1"  alt="star-img" />
+            <img src={props.starImg2}  className="star-img2"  alt="star-img-2" />
         </div>
-        <img src={patternConfettiIcon} alt="patternConfettiIcon" className="patternConfettiIcon" />
+        {/* <img src={patternConfettiIcon} alt="patternConfettiIcon" className="patternConfettiIcon" /> */}
 </>
     )
 }

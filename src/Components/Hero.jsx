@@ -67,10 +67,10 @@ export default function Hero() {
   }
 
   useEffect(() => {
-    if (time === 0) {
+    if (time === "timed" && time === 0) {
       finishTest();
     }
-  }, [time]);
+  }, [time, option]);
 
   useEffect(() => {
     if (!paragraph?.text) return;
@@ -202,6 +202,7 @@ export default function Hero() {
         {paragraph.text.split("").map((char, index) => {
           let color = "hsl(240, 3%, 46%)";
           let textDecoration = "none";
+          let className = "";
 
           if (index < input.length) {
             if (char === input[index]) {
@@ -212,14 +213,17 @@ export default function Hero() {
             }
           }
 
-
           if (index === input.length) {
-            className = "cursor";
+            className = "cursor-box";
           }
 
           return (
-            <span key={index} style={{ color, textDecoration }}>
-              {char}
+            <span
+              key={index}
+              className={className}
+              style={{ color, textDecoration, display: "inline-block" }}
+            >
+              {char === " " ? "\u00A0" : char}
             </span>
           );
         })}
