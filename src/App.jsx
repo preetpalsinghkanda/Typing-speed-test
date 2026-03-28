@@ -18,40 +18,58 @@ function App() {
     getCorrectChars,
     data,
     mode,
+    highScore,
     paragraph,
+    isFirstAttempt,
   } = useContext(TypingContext);
 
   return (
     <>
       <Navbar />
-      {!isTestCompleted && <Hero />}
-      {newHighScore ? (
-        <Highscore
-          img={smashedIcon}
-          heading={"High Score Smashed!"}
-          paragraph={"You're getting faster. That was incredible typing."}
-          btnName={"Beat This Score"}
-          wpm={calculateWPM()}
-          accuracy={calculateAccuracy(paragraph.text)}
-          correctChar={getCorrectChars(paragraph.text)}
-          count={paragraph.text.length}
-        />
-      ) : isTestCompleted ? (
-        <Highscore
-        starImg1={starImg1}
-        starImg2={starImg2}
-          img={rightTick}
-          heading={"Task Complete!"}
-          paragraph={"Solid run. Keep pushing to beat your high score."}
-          btnName={"Go Again"}
-          wpm={calculateWPM()}
-          accuracy={calculateAccuracy(paragraph.text)}
-          correctChar={getCorrectChars(paragraph.text)}
-          count={paragraph.text.length}
-        />
-      ) : null} 
-
-      
+      {isTestCompleted ? (
+        isFirstAttempt ? (
+          <Highscore
+            starImg1={starImg1}
+            starImg2={starImg2}
+            img={rightTick}
+            heading={"Baseline Established!"}
+            paragraph={
+              "You've set the bar. Now the real challenge begins—time to beat it."
+            }
+            btnName={"Beat This Score"}
+            wpm={calculateWPM()}
+            accuracy={calculateAccuracy(paragraph.text)}
+            correctChar={getCorrectChars(paragraph.text)}
+            count={paragraph.text.length}
+          />
+        ) : newHighScore ? (
+          <Highscore
+            img={smashedIcon}
+            heading={"High Score Smashed!"}
+            paragraph={"You're getting faster. That was incredible typing."}
+            btnName={"Beat This Score"}
+            wpm={calculateWPM()}
+            accuracy={calculateAccuracy(paragraph.text)}
+            correctChar={getCorrectChars(paragraph.text)}
+            count={paragraph.text.length}
+          />
+        ) : (
+          <Highscore
+            starImg1={starImg1}
+            starImg2={starImg2}
+            img={rightTick}
+            heading={"Task Complete!"}
+            paragraph={"Solid run. Keep pushing to beat your high score."}
+            btnName={"Go Again"}
+            wpm={calculateWPM()}
+            accuracy={calculateAccuracy(paragraph.text)}
+            correctChar={getCorrectChars(paragraph.text)}
+            count={paragraph.text.length}
+          />
+        )
+      ) : (
+        <Hero />
+      )}
     </>
   );
 }

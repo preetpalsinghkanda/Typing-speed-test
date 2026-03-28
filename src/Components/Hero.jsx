@@ -26,6 +26,8 @@ export default function Hero() {
     paragraph,
     getCorrectChars,
     totalTyped,
+    setFirstAttempt ,
+    
 
     reset,
   } = useContext(TypingContext);
@@ -48,26 +50,35 @@ export default function Hero() {
   }
 
   // finish test fnc
-  function finishTest() {
-    if (isTestCompleted) return;
+function finishTest() {
+  if (isTestCompleted) return;
 
-    setIsTimeRunning(false);
-    setIsTestCompleted(true);
+  setIsTimeRunning(false);
+  setIsTestCompleted(true);
 
-    const wpm = calculateWPM();
-    const accuracy = calculateAccuracy();
+  const wpm = calculateWPM();
+  const accuracy = calculateAccuracy();
 
-    if (wpm > highScore && accuracy >= 50) {
-      setHighScore(wpm);
-      localStorage.setItem("highScore", wpm);
-      setNewHighScore(true);
-    } else {
-      setNewHighScore(false);
-    }
+  const prevHighScore = highScore; 
+
+  if (prevHighScore === 0) {
+    setHighScore(wpm);
+    localStorage.setItem("highScore", wpm);
+    setNewHighScore("baseline"); 
+    setFirstAttempt(false);
+  } 
+  else if (wpm > prevHighScore && accuracy >= 50) {
+    setHighScore(wpm);
+    localStorage.setItem("highScore", wpm);
+    setNewHighScore(true);
+  } 
+  else {
+    setNewHighScore(false);
   }
+}
 
   useEffect(() => {
-    if (time === "timed" && time === 0) {
+    if (option === "timed" && time === 0) {
       finishTest();
     }
   }, [time, option]);
