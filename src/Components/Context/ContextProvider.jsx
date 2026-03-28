@@ -16,7 +16,7 @@ function TypingContextProvider({ children }) {
   const [newHighScore, setNewHighScore] = useState(false);
   const [isTestCompleted, setIsTestCompleted] = useState(false);
 
-  const [totalTyped, setTotalTyped] = useState(0);
+
 
   useEffect(() => {
     const savedScore = localStorage.getItem("highScore");
@@ -56,23 +56,41 @@ function TypingContextProvider({ children }) {
     setIsTestCompleted(false);
     setNewHighScore(false);
     setRandomNumber(Math.floor(Math.random() * 10));
-    setTotalTyped(0);
+    
   }
 
   function calculateWPM() {
-    if (totalTyped === 0) return 0;
+    const correctChars = getCorrectChars(paragraph.text);
+    if (correctChars === 0) return 0;
 
-    const words = totalTyped / 5; 
+    const words = correctChars / 5;
     const timeSpent = (60 - time) / 60;
 
     if (timeSpent <= 0) return 0;
-
     return Math.round(words / timeSpent);
   }
 
-  function calculateAccuracy(text) {
-    if (totalTyped === 0) return 0;
 
+
+  function calculateAccuracy(text) {
+    if (input.length === 0) return 0;
+
+    let correct = 0;
+
+    const length = Math.min(input.length, text.length);
+
+    for (let i = 0; i < length; i++) {
+      if (input[i] === text[i]) {
+        correct++;
+      }
+    }
+
+    return Math.round((correct / input.length) * 100);
+  }
+
+
+
+  function getCorrectChars(text) {
     let correct = 0;
 
     for (let i = 0; i < input.length; i++) {
@@ -81,9 +99,14 @@ function TypingContextProvider({ children }) {
       }
     }
 
-    return Math.round((correct / totalTyped) * 100);
+    return correct;
   }
 
+  const [randomNumber, setRandomNumber] = useState(
+    Math.floor(Math.random() * 10),
+  );
+
+  const paragraph = data?.[mode]?.[randomNumber];
 
   return (
     <TypingContext.Provider
@@ -109,7 +132,8 @@ function TypingContextProvider({ children }) {
         calculateAccuracy,
         paragraph,
         setHighScore,
-        setTotalTyped,
+        getCorrectChars,
+        
       }}
     >
       {children}

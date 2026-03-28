@@ -24,22 +24,31 @@ export default function Hero() {
     setNewHighScore,
     setIsTestCompleted,
     paragraph,
-    setTotalTyped,
+    getCorrectChars,
+    totalTyped,
 
     reset,
   } = useContext(TypingContext);
 
-  const calculateWPM = () => {
-    const chars = input.length;
-    const words = chars / 5;
-    const timeSpent = (60 - time) / 60;
+  const inputRef = useRef(null);
 
-    if (timeSpent <= 0) return 0;
+  // calculate wpm
 
-    return Math.round(words / timeSpent);
-  };
+  function calculateWPM() {
+    if (input.length === 0) return 0;
 
-  const finishTest = () => {
+    const words = input.length / 5;
+    const timeElapsedInSeconds = 60 - time;
+
+    if (timeElapsedInSeconds < 1) return 0;
+
+    const timeSpentInMinutes = timeElapsedInSeconds / 60;
+
+    return Math.round(words / timeSpentInMinutes);
+  }
+
+  // finish test fnc
+  function finishTest() {
     if (isTestCompleted) return;
 
     setIsTimeRunning(false);
@@ -48,8 +57,14 @@ export default function Hero() {
     const wpm = calculateWPM();
     const accuracy = calculateAccuracy();
 
-   
-  };
+    if (wpm > highScore && accuracy >= 50) {
+      setHighScore(wpm);
+      localStorage.setItem("highScore", wpm);
+      setNewHighScore(true);
+    } else {
+      setNewHighScore(false);
+    }
+  }
 
   useEffect(() => {
     if (time === 0) {
@@ -65,29 +80,20 @@ export default function Hero() {
     }
   }, [input]);
 
-  const calculateAccuracy = () => {
-    const text = paragraph.text;
-    let correct = 0;
-
-    for (let i = 0; i < input.length; i++) {
-      if (input[i] === text[i]) {
-        correct++;
-      }
-    }
-
+  //calculate  Accuracy
+  function calculateAccuracy() {
     if (input.length === 0) return 0;
 
-    return Math.round((correct / input.length) * 100);
-  };
+    const correct = getCorrectChars(paragraph.text);
 
-  const formatTime = (time) => {
+    return Math.round((correct / input.length) * 100);
+  }
+
+  function formatTime(time) {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
-  const inputRef = useRef(null);
+  }
 
   //return
   return (
@@ -195,21 +201,30 @@ export default function Hero() {
       <p className={`para ${!isTimeRunning ? "blur" : ""}`}>
         {paragraph.text.split("").map((char, index) => {
           let color = "hsl(240, 3%, 46%)";
+          let textDecoration = "none";
 
           if (index < input.length) {
-            color =
-              char === input[index]
-                ? "hsl(140, 63%, 57%)"
-                : "hsl(354, 63%, 57%)";
+            if (char === input[index]) {
+              color = "hsl(140, 63%, 57%)";
+            } else {
+              color = "hsl(354, 63%, 57%)";
+              textDecoration = "underline";
+            }
+          }
+
+
+          if (index === input.length) {
+            className = "cursor";
           }
 
           return (
-            <span key={index} style={{ color }}>
+            <span key={index} style={{ color, textDecoration }}>
               {char}
             </span>
           );
         })}
       </p>
+
       <input
         ref={inputRef}
         className="hidden-input"
@@ -217,10 +232,18 @@ export default function Hero() {
         onChange={(e) => {
           const value = e.target.value;
 
-          if (value.length > input.length && setTotalTyped) {
-            setTotalTyped((prev) => prev + 1);
-          }
+          const isDeletion = value.length < input.length;
 
+          if (isDeletion) {
+            setInput(value);
+            return;
+          }
+          const lastChar = value[value.length - 1];
+          const expectedChar = paragraph.text[input.length];
+
+          if (lastChar === " " && expectedChar !== " ") {
+            return;
+          }
           setInput(value);
         }}
         autoFocus
