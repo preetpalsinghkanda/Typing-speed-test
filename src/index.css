@@ -32,6 +32,12 @@ body button{
 @media(max-width:660px){
 
   body{padding: 20px;
-  height: auto;}
+  height: auto;
+   overflow-x: hidden;
+   overflow-x: hidden; 
+  position: relative;
+ 
+
+}
     
 }

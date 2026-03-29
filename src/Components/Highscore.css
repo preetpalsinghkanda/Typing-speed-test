@@ -123,10 +123,12 @@
 }
 
 .patternConfettiIcon {
-    position: absolute;
-    width: 100vw;
+   position: absolute;
+    width: 100%;
+    height: auto;      
     bottom: 0;
     left: 0;
+    
 }
 
 @media(max-width:1400px) {
@@ -184,15 +186,14 @@
         font-size: 16px;
     }
 
-    .highscore-result div p {
-        font-size: 16px; /* Labels thode bade */
+    .highscore-result div p{
+        font-size: 16px; 
     }
 
     .highscore-result div span {
-        font-size: 22px; /* Numbers prominent dikhne chahiye */
+        font-size: 22px;
     }
 }
-
 
 @media(max-width:660px){
     .highscore-container{
@@ -209,4 +210,17 @@
         top: 610px;
         height: 2rem;
     }
+
+     .star-img2 {
+    height: 1rem;
+    left: 30px;
+    top:110px ;
+}
+
+
+
+.BeatThisScore-btn{
+    z-index: 10;
+}
+
 }
