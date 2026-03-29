@@ -20,14 +20,14 @@ function App() {
     mode,
     highScore,
     paragraph,
-    isFirstAttempt,
+    firstAttempt,
   } = useContext(TypingContext);
 
   return (
     <>
       <Navbar />
       {isTestCompleted ? (
-        isFirstAttempt ? (
+        firstAttempt ? (
           <Highscore
             starImg1={starImg1}
             starImg2={starImg2}

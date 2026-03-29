@@ -29,7 +29,6 @@
     font-size: 15px;
 }
 
-
 .left-main-navbar hr{
     margin: 0px 24px;
     border: 0.1px solid hsl(0, 0%, 15%);
@@ -179,8 +178,10 @@
 .cursor-box {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
-  display: inline-block;   
-  padding: 0px 4px; 
+  /* display: inline-block;    */
+  display: inline;          
+  padding: 0px 2px;        
+  /* border-left: 2px solid white; */
 
 }
 

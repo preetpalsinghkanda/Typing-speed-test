@@ -27,7 +27,7 @@ function TypingContextProvider({ children }) {
     if (savedScore) {
       setHighScore(Number(savedScore));
     }
-  }, [isTestCompleted]);
+  }, []);
 
   useEffect(() => {
     if (!isTimeRunning) return;
@@ -58,6 +58,7 @@ function TypingContextProvider({ children }) {
     setIsStarted(false);
     setIsTestCompleted(false);
     setNewHighScore(false);
+    setFirstAttempt(false); 
     setRandomNumber(Math.floor(Math.random() * 10));
     
   }

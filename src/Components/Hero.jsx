@@ -25,9 +25,9 @@ export default function Hero() {
     setIsTestCompleted,
     paragraph,
     getCorrectChars,
+
     totalTyped,
-    setFirstAttempt ,
-    
+    setFirstAttempt,
 
     reset,
   } = useContext(TypingContext);
@@ -36,46 +36,50 @@ export default function Hero() {
 
   // calculate wpm
 
-  function calculateWPM() {
-    if (input.length === 0) return 0;
+function calculateWPM() {
+  const correctChars = getCorrectChars(paragraph.text); 
+  if (correctChars === 0) return 0;
 
-    const words = input.length / 5;
-    const timeElapsedInSeconds = 60 - time;
+  const words = correctChars / 5;
+  const timeSpent = (60 - time) / 60;
 
-    if (timeElapsedInSeconds < 1) return 0;
+  if (timeSpent <= 0) return 0;
+  return Math.round(words / timeSpent);
+}
 
-    const timeSpentInMinutes = timeElapsedInSeconds / 60;
+// finishtest 
 
-    return Math.round(words / timeSpentInMinutes);
-  }
-
-  // finish test fnc
 function finishTest() {
   if (isTestCompleted) return;
 
   setIsTimeRunning(false);
   setIsTestCompleted(true);
+  const currentWpm = calculateWPM(); 
+  const currentAccuracy = calculateAccuracy();
 
-  const wpm = calculateWPM();
-  const accuracy = calculateAccuracy();
+  
+  const savedHighScore = Number(localStorage.getItem("highScore")) || 0;
 
-  const prevHighScore = highScore; 
-
-  if (prevHighScore === 0) {
-    setHighScore(wpm);
-    localStorage.setItem("highScore", wpm);
-    setNewHighScore("baseline"); 
-    setFirstAttempt(false);
-  } 
-  else if (wpm > prevHighScore && accuracy >= 50) {
-    setHighScore(wpm);
-    localStorage.setItem("highScore", wpm);
-    setNewHighScore(true);
-  } 
-  else {
+  if (savedHighScore === 0) {
+    
+    setHighScore(currentWpm);
+    localStorage.setItem("highScore", currentWpm);
     setNewHighScore(false);
+    setFirstAttempt(true); 
+  } else if (currentWpm > savedHighScore && currentAccuracy >= 50) {
+    
+    setHighScore(currentWpm);
+    localStorage.setItem("highScore", currentWpm);
+    setNewHighScore(true);
+    setFirstAttempt(false); 
+  } else {
+    
+    setNewHighScore(false);
+    setFirstAttempt(false); 
   }
 }
+
+
 
   useEffect(() => {
     if (option === "timed" && time === 0) {

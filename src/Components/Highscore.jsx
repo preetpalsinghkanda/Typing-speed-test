@@ -52,7 +52,7 @@ export default function Highscore(props) {
           </>
         )}
       </div>
-      {firstAttempt && (
+      {newHighScore && (
         <img
           src={patternConfettiIcon}
           alt="patternConfettiIcon"

@@ -11,12 +11,11 @@
 
 .smashedIcon {
     /* border: 1px solid white; */
-    border-radius: 50%;
-
     height: 70px;
 }
 
 .icon-new-pb {
+     border-radius: 50%;
     border: 10px solid hsla(140, 63%, 57%, 0.265);
     outline: 10px solid hsla(140, 63%, 57%, 0.098);
 }
