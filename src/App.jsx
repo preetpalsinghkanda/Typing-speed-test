@@ -26,7 +26,7 @@ function App() {
   return (
     <>
       <Navbar />
-      {isTestCompleted ? (
+      {/* {isTestCompleted ? (
         firstAttempt ? (
           <Highscore
             starImg1={starImg1}
@@ -69,7 +69,19 @@ function App() {
         )
       ) : (
         <Hero />
-      )}
+      )} */}
+
+      <Highscore
+            starImg1={starImg1}
+            starImg2={starImg2}
+            img={rightTick}
+            heading={"Task Complete!"}
+            paragraph={"Solid run. Keep pushing to beat your high score."}
+            btnName={"Go Again"}
+            wpm={calculateWPM()}
+            accuracy={calculateAccuracy(paragraph.text)}
+            correctChar={getCorrectChars(paragraph.text)}
+            count={paragraph.text.length}></Highscore>
     </>
   );
 }

@@ -15,7 +15,7 @@
 }
 
 .icon-new-pb {
-     border-radius: 50%;
+    border-radius: 50%;
     border: 10px solid hsla(140, 63%, 57%, 0.265);
     outline: 10px solid hsla(140, 63%, 57%, 0.098);
 }
@@ -127,4 +127,86 @@
     width: 100vw;
     bottom: 0;
     left: 0;
+}
+
+@media(max-width:1400px) {
+    .star-img2 {
+
+    position: absolute;
+    left: 80px;
+    top:130px ;
+}
+
+.star-img1 {
+    
+    position: absolute;
+    right: 70px;
+    top: 400px;
+}
+
+}
+
+@media(max-width:769px){
+.highscore-result {
+        flex-direction: column; 
+        width: 100%;
+        max-width: 400px; 
+        gap: 15px;
+    }
+
+.highscore-container {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .highscore-heading h2 {
+        font-size: 24px; 
+    }
+
+    .highscore-heading p {
+        font-size: 14px;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .highscore-result div{
+        width: 100%; 
+        box-sizing: border-box;
+        padding: 15px; 
+        border-radius: 10px;
+        
+    }
+
+    .BeatThisScore-btn {
+        /* width: 100%;  */
+        max-width: 400px;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .highscore-result div p {
+        font-size: 16px; /* Labels thode bade */
+    }
+
+    .highscore-result div span {
+        font-size: 22px; /* Numbers prominent dikhne chahiye */
+    }
+}
+
+
+@media(max-width:660px){
+    .highscore-container{
+        padding: 0px;
+    
+    }
+
+    .smashedIcon,.icon-new-pb{
+        height: 70px;
+    }
+
+    .star-img1{
+        right: 30px;
+        top: 610px;
+        height: 2rem;
+    }
 }

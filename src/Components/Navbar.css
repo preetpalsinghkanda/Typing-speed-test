@@ -6,6 +6,9 @@
     
 }
 
+.small-logo{
+    display: none;
+}
 .navbar-right{
     display: flex;
     gap: 10px;
@@ -17,4 +20,18 @@
 }
 .wpm-box{
     color: hsl(0, 0%, 100%);
+}
+
+
+@media(max-width:768px){
+    .personal-word{
+        display: none;
+    }
+    .small-logo{
+        display: unset;
+    }
+    .large-logo{
+        display: none;
+    }
+    
 }
