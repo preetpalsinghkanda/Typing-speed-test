@@ -4,9 +4,8 @@ import TypingContext from "./Context/Context";
 import restartIcon from "../assets/icon-restart.svg";
 import { useState } from "react";
 import { useRef } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function Hero() {
   const {
@@ -28,7 +27,8 @@ export default function Hero() {
     setIsTestCompleted,
     paragraph,
     getCorrectChars,
-
+    openDropdown,
+    setOpenDropdown,
     totalTyped,
     setFirstAttempt,
 
@@ -169,33 +169,42 @@ export default function Hero() {
 
             {/* option  */}
 
-          <div className="dropdown">
-  <div className="dropdown-btn">
-    {mode.charAt(0).toUpperCase() + mode.slice(1)} <FontAwesomeIcon icon={faAngleDown}  />
-  </div>
+            <div className="dropdown">
+              <div
+                className="dropdown-btn"
+                onClick={() =>
+                  setOpenDropdown(
+                    openDropdown === "difficulty" ? null : "difficulty",
+                  )
+                }
+              >
+                {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                <FontAwesomeIcon icon={faAngleDown} />
+              </div>
 
-  <div className="dropdown-content">
-    {["easy", "medium", "hard"].map((item) => (
-      <label key={item}>
-        <input
-          type="radio"
-          checked={mode === item}
-          onChange={() => {
-            setMode(item);
-            reset();
-          }}
-        />
-        {item.charAt(0).toUpperCase() + item.slice(1)}
-      </label>
-    ))}
-  </div>
-</div>
-
-
-
-
+              <div
+                className={`dropdown-content ${
+                  openDropdown === "difficulty" ? "show" : ""
+                }`}
+              >
+                {["easy", "medium", "hard"].map((item) => (
+                  <label key={item}>
+                    <input
+                      type="radio"
+                      checked={mode === item}
+                      onChange={() => {
+                        setMode(item);
+                        reset();
+                        setOpenDropdown(null);
+                      }}
+                    />
+                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </label>
+                ))}
+              </div>
+            </div>
           </div>
-          <hr />
+          <hr className="line" />
           <div className="right-navbar-box">
             <p>Mode:</p>
             <div className="button-box">
@@ -219,14 +228,22 @@ export default function Hero() {
               </button>
             </div>
 
-
             <div className="dropdown">
-              <div className="dropdown-btn">
-                {" "}
-                {option === "timed" ? "Timed (60s)" : "Passage"} <FontAwesomeIcon icon={faAngleDown}  />
+              <div
+                className="dropdown-btn"
+                onClick={() =>
+                  setOpenDropdown(openDropdown === "mode" ? null : "mode")
+                }
+              >
+                {option === "timed" ? "Timed (60s)" : "Passage"}
+                <FontAwesomeIcon icon={faAngleDown} />
               </div>
 
-              <div className="dropdown-content">
+              <div
+                className={`dropdown-content ${
+                  openDropdown === "mode" ? "show" : ""
+                }`}
+              >
                 <label>
                   <input
                     type="radio"
@@ -234,6 +251,7 @@ export default function Hero() {
                     onChange={() => {
                       setOption("timed");
                       reset();
+                      setOpenDropdown(null);
                     }}
                   />
                   Timed (60s)
@@ -246,6 +264,7 @@ export default function Hero() {
                     onChange={() => {
                       setOption("passage");
                       reset();
+                      setOpenDropdown(null);
                     }}
                   />
                   Passage

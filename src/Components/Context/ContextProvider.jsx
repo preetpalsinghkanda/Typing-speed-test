@@ -19,7 +19,7 @@ function TypingContextProvider({ children }) {
 
   const [firstAttempt , setFirstAttempt] = useState(true);  
 
-
+const [openDropdown , setOpenDropdown] = useState(null);
 
   useEffect(() => {
     const savedScore = localStorage.getItem("highScore");
@@ -133,6 +133,8 @@ function TypingContextProvider({ children }) {
         setNewHighScore,
         isTestCompleted,
         calculateWPM,
+        openDropdown,
+        setOpenDropdown,
         firstAttempt, 
         setFirstAttempt,
         calculateAccuracy,
