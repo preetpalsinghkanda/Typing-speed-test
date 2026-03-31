@@ -1,16 +1,44 @@
-# React + Vite
+# Typing Speed Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive typing speed test web application built with React.  
+Improve your typing speed, track accuracy, and monitor performance in real time.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Link
 
-## React Compiler
+https://typingtestbypreet.netlify.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Preview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+<img width="1691" height="970" alt="Screenshot 2026-03-31 103001" src="https://github.com/user-attachments/assets/0d97d3c2-312d-41c1-b2ae-a5e3984921cc" />
+
+
+---
+
+## Features
+
+- Real-time typing test
+- Live WPM (Words Per Minute) calculation
+- Accuracy tracking with instant feedback
+- Timed Mode (60 seconds)
+- Passage Mode (continuous typing)
+- Difficulty levels:
+  - Easy
+  - Medium
+  - Hard
+- Fully responsive (mobile-friendly)
+
+---
+
+##  Tech Stack
+
+- React.js
+- Context API (State Management)
+- CSS3 (Flexbox & Responsive Design)
+- LocalStorage
+
+---
+
