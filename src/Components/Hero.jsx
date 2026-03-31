@@ -92,7 +92,7 @@ export default function Hero() {
     }
   }, [input]);
 
-  //calculate  Accuracy
+
   function calculateAccuracy() {
     if (input.length === 0) return 0;
 
@@ -119,7 +119,7 @@ export default function Hero() {
           <hr />
           <div>
             <p>Accuracy:</p>
-            <span>
+           <span className={calculateAccuracy() !== 0 ? "red-acc" : ""}>
               <span>{calculateAccuracy()}</span>%
             </span>
           </div>
@@ -128,7 +128,7 @@ export default function Hero() {
               <hr />
               <div>
                 <p>Time:</p>
-                <span>{formatTime(time)}</span>
+                <span className={formatTime(time) !== 60 ? "yellow-time" : ""}>{formatTime(time)}</span>
               </div>
             </>
           )}
@@ -166,8 +166,6 @@ export default function Hero() {
                 Hard
               </button>
             </div>
-
-            {/* option  */}
 
             <div className="dropdown">
               <div
