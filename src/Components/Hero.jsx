@@ -4,6 +4,9 @@ import TypingContext from "./Context/Context";
 import restartIcon from "../assets/icon-restart.svg";
 import { useState } from "react";
 import { useRef } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function Hero() {
   const {
@@ -36,50 +39,44 @@ export default function Hero() {
 
   // calculate wpm
 
-function calculateWPM() {
-  const correctChars = getCorrectChars(paragraph.text); 
-  if (correctChars === 0) return 0;
+  function calculateWPM() {
+    const correctChars = getCorrectChars(paragraph.text);
+    if (correctChars === 0) return 0;
 
-  const words = correctChars / 5;
-  const timeSpent = (60 - time) / 60;
+    const words = correctChars / 5;
+    const timeSpent = (60 - time) / 60;
 
-  if (timeSpent <= 0) return 0;
-  return Math.round(words / timeSpent);
-}
-
-// finishtest 
-
-function finishTest() {
-  if (isTestCompleted) return;
-
-  setIsTimeRunning(false);
-  setIsTestCompleted(true);
-  const currentWpm = calculateWPM(); 
-  const currentAccuracy = calculateAccuracy();
-
-  
-  const savedHighScore = Number(localStorage.getItem("highScore")) || 0;
-
-  if (savedHighScore === 0) {
-    
-    setHighScore(currentWpm);
-    localStorage.setItem("highScore", currentWpm);
-    setNewHighScore(false);
-    setFirstAttempt(true); 
-  } else if (currentWpm > savedHighScore && currentAccuracy >= 50) {
-    
-    setHighScore(currentWpm);
-    localStorage.setItem("highScore", currentWpm);
-    setNewHighScore(true);
-    setFirstAttempt(false); 
-  } else {
-    
-    setNewHighScore(false);
-    setFirstAttempt(false); 
+    if (timeSpent <= 0) return 0;
+    return Math.round(words / timeSpent);
   }
-}
 
+  // finishtest
 
+  function finishTest() {
+    if (isTestCompleted) return;
+
+    setIsTimeRunning(false);
+    setIsTestCompleted(true);
+    const currentWpm = calculateWPM();
+    const currentAccuracy = calculateAccuracy();
+
+    const savedHighScore = Number(localStorage.getItem("highScore")) || 0;
+
+    if (savedHighScore === 0) {
+      setHighScore(currentWpm);
+      localStorage.setItem("highScore", currentWpm);
+      setNewHighScore(false);
+      setFirstAttempt(true);
+    } else if (currentWpm > savedHighScore && currentAccuracy >= 50) {
+      setHighScore(currentWpm);
+      localStorage.setItem("highScore", currentWpm);
+      setNewHighScore(true);
+      setFirstAttempt(false);
+    } else {
+      setNewHighScore(false);
+      setFirstAttempt(false);
+    }
+  }
 
   useEffect(() => {
     if (option === "timed" && time === 0) {
@@ -169,6 +166,34 @@ function finishTest() {
                 Hard
               </button>
             </div>
+
+            {/* option  */}
+
+          <div className="dropdown">
+  <div className="dropdown-btn">
+    {mode.charAt(0).toUpperCase() + mode.slice(1)} <FontAwesomeIcon icon={faAngleDown}  />
+  </div>
+
+  <div className="dropdown-content">
+    {["easy", "medium", "hard"].map((item) => (
+      <label key={item}>
+        <input
+          type="radio"
+          checked={mode === item}
+          onChange={() => {
+            setMode(item);
+            reset();
+          }}
+        />
+        {item.charAt(0).toUpperCase() + item.slice(1)}
+      </label>
+    ))}
+  </div>
+</div>
+
+
+
+
           </div>
           <hr />
           <div className="right-navbar-box">
@@ -192,6 +217,40 @@ function finishTest() {
               >
                 Passage
               </button>
+            </div>
+
+
+            <div className="dropdown">
+              <div className="dropdown-btn">
+                {" "}
+                {option === "timed" ? "Timed (60s)" : "Passage"} <FontAwesomeIcon icon={faAngleDown}  />
+              </div>
+
+              <div className="dropdown-content">
+                <label>
+                  <input
+                    type="radio"
+                    checked={option === "timed"}
+                    onChange={() => {
+                      setOption("timed");
+                      reset();
+                    }}
+                  />
+                  Timed (60s)
+                </label>
+
+                <label>
+                  <input
+                    type="radio"
+                    checked={option === "passage"}
+                    onChange={() => {
+                      setOption("passage");
+                      reset();
+                    }}
+                  />
+                  Passage
+                </label>
+              </div>
             </div>
           </div>
         </div>
